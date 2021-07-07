@@ -3,7 +3,7 @@ var router = express.Router();
 
 // const users = require('./users.js');
 const posts = require('./posts.js');
-const chat = require('./chats.js');
+const chat = require('./chat.js');
 
 // router.use('/user', users);
 router.use('/post', posts);
