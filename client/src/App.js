@@ -4,8 +4,6 @@ import {Route, Switch} from 'react-router-dom';
 import "antd/dist/antd.css";
 import './App.css';
 import {Home, Main, Login} from './routes';
-import io from 'socket.io-client';
-export const socket = io('localhost:5000');
 
 function App() {
   return (

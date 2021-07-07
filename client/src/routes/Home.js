@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {Menu, socket} from '../components';
 
-
 const Home = () => {
   const [chats, setchats] = useState(['first msg']);
   const [isConnected, setIsConnected] = useState(socket.connected);
