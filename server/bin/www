@@ -20,14 +20,34 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+const io = require('socket.io')(server, {cors : {origin : "*"}});
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+io.listen(port);
+io.on('error', onError);
+io.on('listening', onListening);
+
+// Chatroom
+let rooms = ["room1", "room2", "room3"];
+let numUsers = 0;
+io.on('connection', socket => {
+  console.log(`connect: ${socket.id}`);
+  
+  socket.on('hello!', () => {
+    console.log(`hello from ${socket.id}`);
+  });
+
+  socket.on('disconnect', () => {
+    console.log(`disconnect: ${socket.id}`);
+  });
+});
+
+setInterval(() => {
+  io.emit('message', new Date().toISOString());
+}, 1000);
 
 /**
  * Normalize a port into a number, string, or false.

@@ -1,11 +1,22 @@
 import React from 'react';
 import {Menu} from '../components';
+
+
 const Login = () => {
+
+
   return (
     <div>
       <Menu />
       <h1>로그인</h1>
-      <p>이 프로젝트는 리액트 라우터 기초를 실습해보는 예제 프로젝트랍니다.</p>
+      <ul>
+        <li class="login page">
+          <div class="form">
+            <h3 class="title">What's your nickname?</h3>
+            <input class="usernameInput" type="text" maxlength="14" />
+          </div>
+        </li>
+      </ul>
     </div>
   );
 };
