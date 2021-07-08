@@ -3,10 +3,13 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const server = require('http').createServer(app);
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, {cors : {origin : "*"}});
 const port = process.env.PORT || 5000;
+/**
+ * Listen on provided port, on all network interfaces.
+ */
 
-server.listen(port, () => {
+io.listen(port, () => {
   console.log('Server listening at port %d', port);
 });
 
@@ -22,6 +25,7 @@ io.on('connection', (socket) => {
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
+    console.log(`${socket.username} : ${data}`);
     // we tell the client to execute 'new message'
     socket.broadcast.emit('new message', {
       username: socket.username,
@@ -36,6 +40,7 @@ io.on('connection', (socket) => {
     // we store the username in the socket session for this client
     socket.username = username;
     ++numUsers;
+    console.log("connected : "+socket.id+" num : "+numUsers);
     addedUser = true;
     socket.emit('login', {
       numUsers: numUsers
@@ -63,9 +68,10 @@ io.on('connection', (socket) => {
 
   // when the user disconnects.. perform this
   socket.on('disconnect', () => {
+    
     if (addedUser) {
       --numUsers;
-
+      console.log("disconnected : "+socket.id+" num : "+numUsers);
       // echo globally that this client has left
       socket.broadcast.emit('user left', {
         username: socket.username,

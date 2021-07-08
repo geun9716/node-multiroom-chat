@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {Menu, socket} from '../components';
 import {useLocation} from "react-router-dom"
 
-
-
 const Home = () => {
   const location = useLocation();
   const nickname = location.state.nickname;
