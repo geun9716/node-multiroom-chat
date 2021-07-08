@@ -72,8 +72,14 @@ const Home = () => {
           </ul>
         </div>
         <div>
-          <input onChange={onChange} value={Msg} class="inputMessage" placeholder="Type here..."/>
-          <button onClick={sendMessage}>Send</button>
+          <input 
+            onChange={onChange} value={Msg} class="inputMessage" 
+            placeholder="Type here..." 
+            onKeyPress={(e)=>{
+              if (e.key === 'Enter')
+                sendMessage();
+            }}/>
+          <button onClick={sendMessage} >Send</button>
         </div>
       </header>
     </div>

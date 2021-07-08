@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
 import {Menu} from '../components';
 
 
@@ -10,6 +9,13 @@ const Login = ({location, history}) => {
     setNickName(e.target.value);
   }
 
+  const onClick = () =>{
+    history.push({
+      pathname : '/',
+      state: {nickname : nickname},
+    });
+  }
+
   return (
     <div>
       <Menu />
@@ -18,11 +24,12 @@ const Login = ({location, history}) => {
         <li>
           <div>
             <h3>What's your nickname?</h3>
-            <input onChange={onChange} value={nickname} type="text"/>
-            <button onClick={()=>{history.push({
-              pathname : '/',
-              state: {nickname : nickname},
-            })}}>입장</button>
+            <input onChange={onChange} value={nickname} type="text"
+              onKeyPress={(e)=>{
+                if (e.key === 'Enter')
+                  onClick();
+              }}/>
+            <button onClick={onClick}>입장</button>
           </div>
         </li>
       </ul>
